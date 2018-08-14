@@ -21,7 +21,7 @@ func Set(key string, value string) {
 	log.Println("set config success", key, value)
 }
 
-func Get(key string) {
+func Get(key string) string {
 	key = Prefix + key
 
 	kv := clientv3.NewKV(client.Client)
@@ -30,7 +30,8 @@ func Get(key string) {
 	if err != nil {
 		log.Println("get config error", err)
 	}
-	log.Println("get config kvs", result.Kvs)
+
+	return string(result.Kvs[0].Value[:])
 }
 
 func Clear() {

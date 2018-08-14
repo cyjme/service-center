@@ -5,9 +5,10 @@ import (
 	"log"
 	"context"
 	"github.com/cyjme/service-center/client"
+	"github.com/coreos/etcd/mvcc/mvccpb"
 )
 
-func ListNodeByServiceName(serviceName string) {
+func ListNodeByServiceName(serviceName string) []*mvccpb.KeyValue {
 
 	kv := clientv3.NewKV(client.Client)
 	result, err := kv.Get(context.TODO(), Prefix+serviceName, clientv3.WithPrefix())
@@ -15,5 +16,6 @@ func ListNodeByServiceName(serviceName string) {
 	if err != nil {
 		log.Println("list node by serviceName", err)
 	}
-	log.Println("list node by serviceName", result.Kvs)
+
+	return result.Kvs
 }

@@ -10,11 +10,11 @@ import (
 )
 
 func Test_all(t *testing.T) {
-	client.Init()
+	client.Init("localhost:2379")
 	config.Set("user-center/db/host", "127.0.0.3")
 	config.Set("user-center/db/name", "127.0.0.4")
 	config.Set("user-center/db", "127.0.0.4")
-	config.Get("user-center")
+	fmt.Println("dbname", config.Get("user-center/db/name"))
 
 	go service.Register("user-center", "0.0.0.0:10001")
 	go service.Register("user-center", "0.0.0.0:10002")
@@ -22,6 +22,7 @@ func Test_all(t *testing.T) {
 	go service.Register("user-center", "0.0.0.0:10004")
 
 	time.Sleep(time.Second * 1)
-	service.ListNodeByServiceName("user-center")
-	fmt.Println("all key value")
+	kvs := service.ListNodeByServiceName("user-center")
+
+	fmt.Println("all key value", kvs)
 }
