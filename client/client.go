@@ -8,9 +8,9 @@ import (
 
 var Client *clientv3.Client
 
-func Init() {
+func Init(url string) {
 	client, err := clientv3.New(clientv3.Config{
-		Endpoints:   []string{"localhost:2379"},
+		Endpoints:   []string{url},
 		DialTimeout: time.Second * 5,
 	})
 

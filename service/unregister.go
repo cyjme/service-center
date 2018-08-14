@@ -4,7 +4,7 @@ import (
 	"golang.org/x/net/context"
 
 	"github.com/coreos/etcd/clientv3"
-	"service-center/client"
+	"github.com/cyjme/service-center/client"
 )
 
 func Unregister(key string) {

@@ -4,7 +4,7 @@ import (
 	"github.com/coreos/etcd/clientv3"
 	"log"
 	"context"
-	"service-center/client"
+	"github.com/cyjme/service-center/client"
 )
 
 func Clear() {

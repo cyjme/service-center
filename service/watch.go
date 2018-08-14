@@ -1,7 +1,7 @@
 package service
 
 import (
-	"service-center/client"
+	"github.com/cyjme/service-center/client"
 	"context"
 	"github.com/coreos/etcd/clientv3"
 	"fmt"

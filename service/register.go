@@ -8,7 +8,7 @@ import (
 
 	"github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
-	"service-center/client"
+	"github.com/cyjme/service-center/client"
 )
 
 func Register(serviceName string, value string) {

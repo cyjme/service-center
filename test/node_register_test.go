@@ -1,9 +1,9 @@
 package test
 
 import (
-	"service-center/client"
-	"service-center/config"
-	"service-center/service"
+	"github.com/cyjme/service-center/client"
+	"github.com/cyjme/service-center/config"
+	"github.com/cyjme/service-center/service"
 	"fmt"
 	"time"
 	"testing"

@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/coreos/etcd/clientv3"
-	"service-center/client"
+	"github.com/cyjme/service-center/client"
 	"log"
 	"context"
 )
