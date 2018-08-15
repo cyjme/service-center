@@ -5,15 +5,18 @@ import (
 	"context"
 	"github.com/coreos/etcd/clientv3"
 	"fmt"
+	"log"
 )
 
-func Watch(serviceName string) {
+func Watch(serviceName string, callback func()) {
 	responseWatchChannel := client.Client.Watch(context.Background(), serviceName, clientv3.WithPrefix())
 
 	for wresp := range responseWatchChannel {
 		for _, ev := range wresp.Events {
-			fmt.Println("watch change")
-			fmt.Printf("%s %q : %q\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
+			log.Println("watch change")
+			log.Printf("%s %q : %q\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
+
+			callback()
 		}
 	}
 }
