@@ -5,10 +5,14 @@ import (
 	"log"
 	"context"
 	"github.com/cyjme/service-center/client"
-	"github.com/coreos/etcd/mvcc/mvccpb"
 )
 
-func ListNodeByServiceName(serviceName string) []*mvccpb.KeyValue {
+type Service struct {
+	key   string
+	value string
+}
+
+func ListNodeByServiceName(serviceName string) []Service {
 
 	kv := clientv3.NewKV(client.Client)
 	result, err := kv.Get(context.TODO(), Prefix+serviceName, clientv3.WithPrefix())
@@ -17,5 +21,14 @@ func ListNodeByServiceName(serviceName string) []*mvccpb.KeyValue {
 		log.Println("list node by serviceName", err)
 	}
 
-	return result.Kvs
+	serviceArray := []Service{}
+
+	for _, kv := range result.Kvs {
+		serviceArray = append(serviceArray, Service{
+			key:   string(kv.Key[:]),
+			value: string(kv.Value[:]),
+		})
+	}
+
+	return serviceArray
 }
