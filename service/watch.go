@@ -4,7 +4,6 @@ import (
 	"github.com/cyjme/service-center/client"
 	"context"
 	"github.com/coreos/etcd/clientv3"
-	"fmt"
 	"log"
 )
 
