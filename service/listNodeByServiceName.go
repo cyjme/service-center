@@ -8,8 +8,8 @@ import (
 )
 
 type Service struct {
-	key   string
-	value string
+	Key   string
+	Value string
 }
 
 func ListNodeByServiceName(serviceName string) []Service {
@@ -25,8 +25,8 @@ func ListNodeByServiceName(serviceName string) []Service {
 
 	for _, kv := range result.Kvs {
 		serviceArray = append(serviceArray, Service{
-			key:   string(kv.Key[:]),
-			value: string(kv.Value[:]),
+			Key:   string(kv.Key[:]),
+			Value: string(kv.Value[:]),
 		})
 	}
 
