@@ -8,8 +8,8 @@ import (
 )
 
 type Service struct {
-	Key   string
-	Value string
+	Key   string `json:"key"`
+	Value string `json:"value"`
 }
 
 func ListNodeByServiceName(serviceName string) []Service {

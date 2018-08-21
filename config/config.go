@@ -21,6 +21,24 @@ func Set(key string, value string) {
 	log.Println("set config success", key, value)
 }
 
+func List(key string) map[string]string {
+	key = Prefix + key
+
+	kv := clientv3.NewKV(client.Client)
+	result, err := kv.Get(context.TODO(), key, clientv3.WithPrefix())
+
+	if err != nil {
+		log.Println("get config error", err)
+	}
+
+	configList := map[string]string{}
+	for _, kv := range result.Kvs {
+		configList[string(kv.Key[:])] = string(kv.Value[:])
+	}
+
+	return configList
+}
+
 func Get(key string) string {
 	key = Prefix + key
 
@@ -34,8 +52,8 @@ func Get(key string) string {
 	return string(result.Kvs[0].Value[:])
 }
 
-func Clear() {
-	key := Prefix
+func Clear(key string) {
+	key = Prefix + key
 
 	kv := clientv3.NewKV(client.Client)
 	result, err := kv.Get(context.TODO(), key, clientv3.WithPrefix())
