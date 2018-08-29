@@ -1,20 +1,21 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/cyjme/service-center/cmd/httpServer/handler/config"
+	"github.com/cyjme/service-center/cmd/httpServer/handler/service"
+	"github.com/gin-gonic/gin"
 )
 
 func RegisterV1Router(r *gin.Engine) {
 	serviceRouter := r.Group("/service")
 	{
-		serviceRouter.GET("")
+		serviceRouter.GET("", service.List)
 	}
 
 	configRouter := r.Group("/config")
 	{
 		configRouter.GET("", config.List)
-		configRouter.DELETE("", config.Delete)
+		configRouter.DELETE("/:key", config.Delete)
 		configRouter.PUT("", config.Update)
 	}
 }

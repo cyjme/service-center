@@ -56,7 +56,7 @@ func bindPortAndRun(r *gin.Engine) {
 			break
 		}
 		log.Println("SERVER UP AND RUNNING!")
-		go serviceCenter.Register("user-center", intranetIp+":"+port)
+		go serviceCenter.Register("service-center", intranetIp+":"+port)
 	}()
 
 	err := r.Run("0.0.0.0" + ":" + port) // listen and serve on 0.0.0.0:8080
