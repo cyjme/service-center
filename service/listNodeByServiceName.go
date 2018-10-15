@@ -1,18 +1,25 @@
 package service
 
 import (
-	"github.com/coreos/etcd/clientv3"
-	"log"
 	"context"
+	"log"
+	"strings"
+
+	"github.com/coreos/etcd/clientv3"
 	"github.com/cyjme/service-center/client"
 )
 
 type Service struct {
-	Key   string `json:"key"`
-	Value string `json:"value"`
+	Name  string `json:"key"`
+	Nodes []Node `json:"nodes"`
 }
 
-func ListNodeByServiceName(serviceName string) []Service {
+type Node struct {
+	Key string `json:"key"`
+	Url string `json:"url"`
+}
+
+func ListNodeByServiceName(serviceName string) map[string][]Node {
 
 	kv := clientv3.NewKV(client.Client)
 	result, err := kv.Get(context.TODO(), Prefix+serviceName, clientv3.WithPrefix())
@@ -20,15 +27,25 @@ func ListNodeByServiceName(serviceName string) []Service {
 	if err != nil {
 		log.Println("list node by serviceName", err)
 	}
-
-	serviceArray := []Service{}
+	serviceMap := map[string][]Node{}
 
 	for _, kv := range result.Kvs {
-		serviceArray = append(serviceArray, Service{
-			Key:   string(kv.Key[:]),
-			Value: string(kv.Value[:]),
-		})
+		key := string(kv.Key[:])
+		value := string(kv.Value[:])
+
+		keyArr := strings.Split(key, "/")
+		serviceName := keyArr[1]
+		nodeKey := keyArr[2]
+		node := Node{
+			Key: nodeKey,
+			Url: value,
+		}
+		if serviceMap[serviceName] == nil {
+			serviceMap[serviceName] = []Node{}
+		}
+
+		serviceMap[serviceName] = append(serviceMap[serviceName], node)
 	}
 
-	return serviceArray
+	return serviceMap
 }

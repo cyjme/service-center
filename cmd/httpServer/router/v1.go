@@ -15,7 +15,7 @@ func RegisterV1Router(r *gin.Engine) {
 	configRouter := r.Group("/config")
 	{
 		configRouter.GET("", config.List)
-		configRouter.DELETE("/:key", config.Delete)
+		configRouter.POST("/delete", config.Delete)
 		configRouter.PUT("", config.Update)
 	}
 }

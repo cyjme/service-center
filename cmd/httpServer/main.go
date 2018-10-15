@@ -9,16 +9,18 @@ import (
 	"time"
 	_ "user-center/docs"
 
+	"github.com/cyjme/pkg/middleware"
+	"github.com/cyjme/service-center/client"
+	"github.com/cyjme/service-center/cmd/httpServer/router"
 	serviceCenter "github.com/cyjme/service-center/service"
 	"github.com/cyjme/service-center/util"
 	"github.com/gin-gonic/gin"
-	"github.com/cyjme/service-center/client"
-	"github.com/cyjme/service-center/cmd/httpServer/router"
 )
 
 func main() {
 	client.Init("localhost:2379")
 	r := gin.Default()
+	r.Use(middleware.CORSMiddleware())
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
@@ -32,6 +34,7 @@ func main() {
 
 func bindPortAndRun(r *gin.Engine) {
 	port := getRandomPort()
+	port = "22222"
 
 	intranetIp, ipErr := util.GetIntranetIp()
 	if ipErr != nil {
