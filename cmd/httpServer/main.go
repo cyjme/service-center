@@ -34,7 +34,6 @@ func main() {
 
 func bindPortAndRun(r *gin.Engine) {
 	port := getRandomPort()
-	port = "22222"
 
 	intranetIp, ipErr := util.GetIntranetIp()
 	if ipErr != nil {
