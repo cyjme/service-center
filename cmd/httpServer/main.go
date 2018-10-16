@@ -9,7 +9,6 @@ import (
 	"time"
 	_ "user-center/docs"
 
-	"github.com/cyjme/pkg/middleware"
 	"github.com/cyjme/service-center/client"
 	"github.com/cyjme/service-center/cmd/httpServer/router"
 	serviceCenter "github.com/cyjme/service-center/service"
@@ -20,7 +19,8 @@ import (
 func main() {
 	client.Init("localhost:2379")
 	r := gin.Default()
-	r.Use(middleware.CORSMiddleware())
+
+	//r.Use(middleware.CORSMiddleware())
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
