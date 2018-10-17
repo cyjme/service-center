@@ -8,7 +8,7 @@ const FormItem = Form.Item;
 class ConfigModal extends React.Component {
     async updateConfig(key, value) {
         const res = await request.put("/config", { key: key, value: value })
-        if (res.status != 200) {
+        if (res.status !== 200) {
             message.error("create fail")
             return
         }
@@ -45,7 +45,7 @@ class ConfigModal extends React.Component {
                                 rules: [{ required: true, message: 'Please input key !' }],
                                 initialValue: this.props.modalData.key
                             })(
-                                <Input placeholder="please input key" disabled={this.props.modalType=="edit"?true:false}/>
+                                <Input placeholder="please input key" disabled={this.props.modalType==="edit"?true:false}/>
                             )}
                         </FormItem>
 

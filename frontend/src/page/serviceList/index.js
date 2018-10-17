@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
-import { message, Input, Radio, Table, Divider, Tag } from 'antd';
+import { message, Input, Radio, Table } from 'antd';
 import request from '../../utils/request';
-import { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } from 'constants';
 
 const Search = Input.Search;
 class ServiceList extends Component {
@@ -21,13 +20,14 @@ class ServiceList extends Component {
             loading: true
         })
         const res = await request.get("/service")
-        if (res.status != 200) {
+        if (res.status !== 200) {
             message.error("get service error")
             return
         }
         let services = [];
         for (const key in res.data) {
             services.push({
+                key: Math.random(),
                 name: key,
                 nodes: res.data[key]
             })
@@ -57,7 +57,7 @@ class ServiceList extends Component {
                     <div>
                         {nodes.map(item => {
                             return (
-                                <div className="node">
+                                <div className="node" key={item.key}>
                                     <p>
                                         key: {item.key}
                                     </p>

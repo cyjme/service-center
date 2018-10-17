@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Input, Radio, Table, Divider, Tag } from 'antd';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ServiceList from "./page/serviceList";
 import ConfigList from "./page/configList";
 import MainLayout from "./layout/mainLayout"

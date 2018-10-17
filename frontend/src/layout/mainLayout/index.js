@@ -36,7 +36,7 @@ class MainLayout extends React.Component {
                 {
                     menu.map(item => {
                         return (
-                            <span key={item.key} className={this.state.selected == item.key ? "menu-item active" : "menu-item"} onClick={() => this.handleSelectMenu(item)}>
+                            <span key={item.key} className={this.state.selected === item.key ? "menu-item active" : "menu-item"} onClick={() => this.handleSelectMenu(item)}>
                                 {item.name}
                             </span>
                         )

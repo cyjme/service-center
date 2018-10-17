@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
-import { Input, Radio, Table, Divider, Tag, message, Button } from 'antd';
+import { Input, Table, message, Button } from 'antd';
 import request from '../../utils/request';
 import ConfigModal from './modal/configModal';
 
@@ -22,9 +22,9 @@ class ConfigList extends Component {
         this.setState({
             loading:true
         })
-        const res = await request.get("/config")
-        if (res.status != 200) {
-            message.error("get config error")
+        const res = await request.get("/config");
+        if (res.status !== 200) {
+            message.error("get config error");
             return
         }
         const configObj = res.data;
@@ -32,6 +32,7 @@ class ConfigList extends Component {
         for (const key in configObj) {
             if (configObj.hasOwnProperty(key)) {
                 configArr.push({
+                    rowKey: Math.random(),
                     key: key,
                     value: configObj[key],
                 })
@@ -62,7 +63,7 @@ class ConfigList extends Component {
     }
     async handleDeleteConfig(key) {
         const res = await request.post("/config/delete", { key: key })
-        if (res.status != 200) {
+        if (res.status !== 200) {
             message.error("删除失败")
             return
         }
@@ -84,7 +85,7 @@ class ConfigList extends Component {
             width: 200,
             render: value => (
                 <span>
-                    {value}
+                    {value.slice(0,120)+"..."}
                 </span>
             ),
         }, {
