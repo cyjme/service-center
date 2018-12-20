@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	_ "user-center/docs"
+	_ "github.com/cyjme/service-center/docs"
 
 	"github.com/cyjme/service-center/client"
 	"github.com/cyjme/service-center/cmd/httpServer/router"
